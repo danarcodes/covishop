@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">    
+  <head>
+    <title>COVISHOP</title>
+    <!-- Erforderliche meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" type="image" href="{% static 'images/assets/schutzmaske.png' %}" />
+
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Merriweather:ital@0;1&family=Rubik:wght@300&family=Work+Sans:wght@400;500;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- gespeichert -->
+    <!-- Fontawesome Icons -->
+    <script
+      src="https://kit.fontawesome.com/76217f0b96.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <!-- Custom CSS -->
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/main.css' %}"
+    />
+
+    <script defer src="{% static 'js/script.js' %}"></script>
+  </head>
+  <body class="bg-dark text-white">
+      <!-- Back to top button -->
+    <button
+      type="button"
+      class="btn btn-info btn-floating btn-lg"
+      id="btn-back-to-top"
+      >
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-white bg-white pt-lg-3 sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img
+            src="{% static 'images/covishop-logo.png' %}"
+            alt=""
+            style="max-width: 70%"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+        <!-- Wenn die Seite zusammengezogen wird, sollen die 3 schwarzen Striche, wo Shop, Unser Team rausgezogen wird, schwarz angezeigt werden  -->
+          <span class="navbar-toggler-icon">
+            <i class="fas fa-bars"></i>
+          </span>
+        </button>
+        <!--  -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item mx-lg-2">
+              <a class="nav-link text-primary active fw-bold" href="#">Home</a>
+            </li>
+            <li class="nav-item mx-lg-2">
+              <a class="nav-link text-black" href="#products">Produktübersicht</a>
+            </li>
+            <li class="nav-item mx-lg-2">
+              <a class="nav-link text-black" href="#about">Unser Team</a>
+            </li>
+            <li class="nav-item mx-lg-2">
+                <a class="btn btn-info btn-lg rounded-pill shop-link text-white" href="{% url 'shop' %}" role="button" style="margin-top: 2px">Zum Shop</a>
+              </li>
+            <li class="d-flex align-items-center mt-2 mt-lg-0 mx-lg-2">
+              <a href="https://www.facebook.com/hwg.ludwigshafen/" target="_blank" class="icon-link text-black">
+                <i class="fab fa-facebook fa-lg mx-2"></i>
+              </a>
+              <a href="https://twitter.com/hwgludwigshafen"
+              target="_blank" class="icon-link text-black"
+                ><i class="fab fa-twitter fa-lg mx-2"></i
+              ></a>
+              <a href="https://www.instagram.com/hwg.ludwigshafen/?hl=de"
+              target="_blank" class="icon-link text-black"
+                ><i class="fab fa-instagram fa-lg mx-2"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Image Slider -->
+    <div
+      id="carouselExampleInterval"
+      class="carousel slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="2000">
+                <div
+                class="slider-image"
+                id="picture1"
+                ></div>
+            </div>
+        <div class="carousel-item" data-bs-interval="2000">
+          <div
+          id="picture2"
+          class="slider-image"
+          ></div>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+          <img
+          id="picture3" 
+            class="slider-image"
+          />
+        </div>
+        <div class="carousel-item" data-bs-interval="5000">
+            <img 
+            id="picture4"
+            class="slider-image"
+            />
+        </img>
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleInterval"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleInterval"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!-- Website Infos -->
+    <div class="container mt-5">
+     <h1 class="lightblue fw-bold text-align">CoviShop</h1>
+        <p> Das Coronavirus SARS-CoV-2 wird über virushaltige Tröpfchen oder Aerosole (feinste luftgetragene Flüssigkeitspartikel und Tröpfchenkerne) übertragen. Diese werden vor allem beim Husten und Niesen versprüht, aber auch beim Atmen, Sprechen, Lachen oder Singen freigesetzt. Die Wahrscheinlichkeit, mit virushaltigen Tröpfchen und Aerosolen in Kontakt zu kommen, ist insbesondere im Umkreis von ein bis zwei Metern um eine mit dem Coronavirus SARS-CoV-2 infizierte Person erhöht. Abstand halten reduziert daher das Risiko, sich und andere anzustecken. </p>
+    </div>
+    <!-- Produkte -->
+    <div id="products" class="container">
+        <h2 class="lightblue fw-bold text-align">Riechst du den Furz, ist der Abstand zu kurz!</h2>
+        <p>
+            Nicht immer kann im öffentlichen Raum der Mindestabstand zu anderen sicher und zuverlässig eingehalten werden. In solchen Situationen sollten Sie eine Maske tragen. In bestimmten Bereichen wie in öffentlichen Verkehrsmitteln sowie in Geschäften ist das Tragen von medizinischem Mund-Nasen-Schutz (OP-Masken) oder FFP2-Masken (bzw. Masken  des Standards KN95 oder N95) Pflicht. Dabei gilt generell: Auch wenn Sie eine Maske tragen, sollten Sie dennoch darauf achten, Abstand zu anderen Menschen zu halten.
+        </p>
+        <div class="card-group text-dark">
+            <div class="card border-0 rounded-0">
+                <div
+                id="card1"
+                class="card-image"
+                ></div>
+              <div class="card-body">
+                <h5 class="card-title fw-bold fs-2">Klopapier</h5>
+                <p class="card-text">Zu Beginn der Pandemie seltener als Gold.</p>
+                <p class="card-text">Klopapier beidseitig verwenden und der Erfolg liegt auf der Hand.</p>
+              </div>
+            </div>
+            <div class="card border-0 rounded-0">
+                <div
+                id="card2"
+                class="card-image"
+                ></div>
+              <div class="card-body">
+                <h5 class="card-title fw-bold fs-2">Desinfektionsmittel</h5>
+                <p class="card-text">Sie können sich auch nach der Pandemie regelmäßig die Hände desinfizieren.</p>
+                <p class="card-text">Achtung: Kein Alkohol zum trinken.</p>
+              </div>
+            </div>
+            <div class="card border-0 rounded-0">
+                <div
+                id="card3"
+                class="card-image"
+                ></div>
+              <div class="card-body">
+                <h5 class="card-title fw-bold fs-2">FFP2-Masken</h5>
+                <p class="card-text">Unsere atmungsaktiven Masken mit stärkerer Filterwirkung halten Sie ganz einfach über Ihre Ohren und drücken den Metallstreifen um Ihre Nase, um eine leichte Abdichtung um Ihr Gesicht zu schaffen.</p>
+              </div>
+            </div>
+          </div>
+    </div>
+    
+    <!-- Über uns -->
+    <div id="about" class="container">
+        <h2 class="lightblue fw-bold text-align">Unser Team</h2>
+        <p class="mb-5">
+            Unser Team hat es sich zur Aufgabe gemacht, den Menschen in Zeiten der Corona-Pandemie die Möglichkeit zu bieten, auch vom Sofa aus gemütlich bestellen zu können. 
+        </p>
+        <ul>
+            <li class="lightblue">Top Qualität</li>
+            <p> Alle unsere Produkte sind von hoher Qualität.</p>
+            <li class="lightblue">Für Handel, Produktion und private Landwirtschaft</li>
+            <p>Unsere Artikel lagern wir im Masken Shop! Die Lieferzeit beträgt zwischen 1-2 Werktagen.</p>
+            <li class="lightblue">Waschbar und wiederverwendbar</li>
+            <p>Bezahlen Sie ganz einfach und wie gewohnt mit Paypal.</p>
+        </ul>
+        <div class="my-5">
+            <div id="abdullah"
+            class="about-image float-lg-start mx-auto mx-lg-2"></div>
+            <div class="p-lg-5"><h3 class="fs-2 lightblue">Abdullah Özbal</h3>
+            <p>
+                Das Projekt hat mir gezeigt, das WebApp Development eine einzige Achterbahnfahrt ist mit Höhen und Tiefen.
+            </p>
+            <p>
+                In schweren Zeiten wie der COVID-19-Pandemie, ist es wichtig, dass jeder mit den wichtigsten Hygiene Artikeln ausgestattet ist.
+            </p>
+        </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="my-5">
+            <div id="sabo"
+            class="about-image float-lg-end mx-auto mx-lg-2"></div>
+            <div class="p-lg-5"><h3 class="fs-2 lightblue">Sabri Günes</h3>
+                <p>
+                    Corona Pandemie gemeinsam bekämpfen, kaufen Sie Artikel mit bester Qualität.
+                </p>
+                <ul>
+                    <li>Verfügbar für Groß- und Kleinaufträge</li>
+                    <li>Für Handel, Produktion und private Landwirtschaft</li>
+                    <li>Waschbar und wiederverwendbar</li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="my-5">
+            <div id="danar"
+            class="about-image float-lg-start mx-auto mx-lg-2"></div>
+            <div class="p-lg-5"><h3 class="fs-2 lightblue">Danar Saady</h3>
+                <p>
+                    Zunehmende sanitäre Maßnahmen bestimmen unseren Alltag und sind essenziell. Atemschutz durch Mund und Nase ist nicht mehr wegzudenken, um Bakterien, Viren und Staubpartikeln kaum eine Chance zu geben.
+                </p>
+                <p>
+                    Eine breite Produktpalette für die Sicherheit Ihres beruflichen und privaten Lebens.
+                </p>
+        </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="text-center">
+            <a role="button" class="btn btn-info rounded-pill btn-lg text-white mb-lg-5"
+               href="{% url 'shop' %}" rel="nofollow" target="_blank">
+              Zum Shop
+            </a>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+  <footer>
+    {% include 'shop/footer.html' %} 
+  </footer>
+</html>

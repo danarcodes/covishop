@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <title>COVISHOP</title>
+
+    <!-- Erforderliche meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" type="image" href="{% static 'images/assets/schutzmaske.png' %}" />
+    
+    
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Merriweather:ital@0;1&family=Rubik:wght@300&family=Work+Sans:wght@400;500;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- gespeichert -->
+    <!-- Fontawesome Icons -->
+    <script
+      src="https://kit.fontawesome.com/76217f0b96.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+
+    <link 
+      rel="stylesheet" 
+      type="text/css" 
+      href="{% static 'css/main.css' %}" 
+    />
+
+    <script type="text/javascript">
+      var user = "{{request.user}}";
+      //https://docs.djangoproject.com/en/4.0/ref/csrf/
+      //csrftoken, sonst funktioniert Paypal nicht
+      function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+      }
+      const csrftoken = getToken('csrftoken');
+      
+      //Cookie
+      //https://www.tutorialrepublic.com/javascript-tutorial/javascript-cookies.php
+      function getCookie(name) {
+        // Cookie wird in einzelne Strings geteilt
+        var cookieArr = document.cookie.split(";");
+        // Cookie info gepaart
+        for (var i = 0; i < cookieArr.length; i++) {
+          var cookiePair = cookieArr[i].split("=");
+
+          // unnötige Leerzeichen werden entfernt
+          if (name == cookiePair[0].trim()) {
+            // Cookie wird decodiert und zurückgegeben
+            return decodeURIComponent(cookiePair[1]);
+          }
+        }
+        // wenn kein Cookie vorhanden, null
+        return null;
+      }
+      //hier wird der Cookie übergeben
+      var cart = JSON.parse(getCookie("cart"));
+
+      //wenn es keinen Cookie 'cart' gibt, wird einer erstellt
+      if (cart == undefined) {
+        cart = {};
+        console.log("Warenkorb erstellt", cart);
+        document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
+      }
+      console.log("Warenkorb:", cart);
+    </script>
+
+    <script defer src="{% static 'js/script.js' %}"></script>
+  </head>
+  <body>
+    <button
+      type="button"
+      class="btn btn-info btn-floating btn-lg"
+      id="btn-back-to-top"
+      >
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    <nav 
+    class="navbar navbar-expand-lg navbar-white bg-white pt-lg-3 sticky-top">
+
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'landingpage' %}">
+        <img 
+          src="{% static 'images/covishop-logo.png' %}" 
+          style="max-width: 70%"
+        />
+      </a>  
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon">
+          <i class="fas fa-bars"></i>
+        </span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2-mb-lg-0">
+          <li class="nav-item mx-lg-2">
+            <a
+              class="nav-link text-black-active"
+              href="{% url 'landingpage' %}"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item mx-lg-2 active fw-bold">
+            <a class="nav-link" href="{% url 'shop' %}">Shop</a>
+          </li>
+        </ul>
+            <a
+              href="{% url 'cart' %}"
+              class="nav-link text-black-active"
+            >
+              Warenkorb
+            </a>
+          <div class="nav-link form-inline my-2 my-lg-0">
+            <span
+              id="cart-total"
+              style="margin-top: 2px"
+              class="position-absolute translate-middle badge badge-pill badge-danger notify"
+              >{{cartItems}}
+            </span>
+            </a>
+          </div>
+        </li>
+      </div>
+    </div>
+  </nav>
+
+    <div class="container">
+      <br />
+      {% block content %} 
+      
+      {% comment %} Zwischen diesen beiden Tags, werden alle anderen HTML Dateien gerendert {% endcomment %}
+      
+      {% endblock content %}
+    </div>
+
+    <script 
+      rc="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" 
+      crossorigin="anonymous">
+    </script>
+    <script 
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+      crossorigin="anonymous">
+    </script>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+  </body>
+  <footer>
+    {% include 'shop/footer.html' %} 
+  </footer>
+</html>

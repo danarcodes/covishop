@@ -1,0 +1,39 @@
+{% extends 'shop/index.html' %} {% load static %} {% block content %}
+
+<div class="row">
+  {% for product in products %}
+
+  <div class="col-lg-4 text-center">
+    <img class="img-thumbnail" src="{{product.imageURL}}" />
+    <div class="box-element product">
+      <h5><strong>{{product.name}}</strong></h5>
+      <hr />
+      <p class="text-center">{{product.description}}</p>
+      <hr />
+
+      {% comment %} update-cart = cart.js {% endcomment %}
+      <button
+        data-product="{{product.id}}"
+        data-action="add"
+        class="btn btn-outline-secondary add-btn update-cart"
+      >
+        In den Warenkorb
+      </button>
+
+      <button
+        data-product="{{product.id}}"
+        data-action="remove"
+        class="btn btn-outline-danger remove-btn update-cart"
+      >
+        Entfernen
+      </button>
+
+      <h4 style="display: inline-block; float: right">
+        <strong>{{product.price|floatformat:2}}€</strong>
+      </h4>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<hr />
+{% endblock content %}

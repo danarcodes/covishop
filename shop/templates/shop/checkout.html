@@ -1,0 +1,219 @@
+{% extends 'shop/index.html' %} {% load static %} {% block content %}
+<div class="row">
+  <div class="col-lg-6">
+    <div class="box-element" id="form-wrapper">
+      <form id="form">
+        <div id="user-info">
+          <div class="form-field">
+            <input
+              required
+              class="form-control"
+              type="text"
+              name="name"
+              placeholder="Name.."
+            />
+          </div>
+          <div class="form-field">
+            <input
+              required
+              class="form-control"
+              type="email"
+              name="email"
+              placeholder="Email.."
+            />
+          </div>
+        </div>
+        <div id="versand-info">
+          <hr />
+          <p>Versand Information:</p>
+          <hr />
+
+          <div class="form-field ">
+            <input
+              required
+              class="form-control"
+              type="text"
+              name="addresse"
+              placeholder="Adresse.."
+            />
+          </div>
+
+          <div class="form-field " >
+            <input
+              required
+              class="form-control"
+              type="text"
+              name="stadt"
+              placeholder="Stadt.."
+            />
+          </div>
+
+          <div class="form-field ">
+            <input
+              required
+              class="form-control"
+              type="number"
+              name="plz"
+              placeholder="PLZ.."
+              />
+          </div>
+          
+        </div>
+
+        <hr />
+
+        {% comment %} Button verschwindet erst, wenn Name und Email eingegeben
+        sind {% endcomment %}
+        <input
+          id="form-button"
+          class="btn btn-success btn-block"
+          type="submit"
+          value="Bezahlen"
+        />
+      </form>
+    </div>
+
+    <br/>
+    <div class="box-element hidden" id="payment-info">
+      <div id="paypal-button-container"></div>
+    </div>
+    </div>
+
+    {% comment %} Bestellübersicht rechts {% endcomment %}
+    <div class="col-lg-6">
+        <div class="box-element">
+          <a class="btn btn-outline-dark" href="{% url 'cart' %}"
+            >&#x2190; Warenkorb</a
+          >
+          <hr />
+          <h3>Bestellung</h3>
+          <hr />
+          
+          {% for item in items %}
+          <div class="cart-row">
+            <div style="flex: 2">
+              <img class="row-image" src="{{item.product.imageURL}}" />
+            </div>
+            <div style="flex: 2"><p>{{item.product.name}}</p></div>
+            <div style="flex: 1">
+              <p>{{item.product.price|floatformat:2}}€</p>
+            </div>
+            <div style="flex: 1"><p>x{{item.quantity}}</p></div>
+          </div>
+          {% endfor %}
+          <h5>Artikel: {{order.get_cart_items}}</h5>
+          <h5>Gesamt: {{order.get_cart_total|floatformat:2}}€</h5>
+        </div>
+      </div>
+      </div>
+
+    {% comment %} Paypal integration {% endcomment %}
+    <div id="paypal-button">
+      <script src="https://www.paypal.com/sdk/js?client-id=AXVUTGGh0hW_-yBOwyK516dvfXfiMv4YGYqzVmOgKV2SEGnvoCU5M8ILhnhz_4OaUbAx-EpCHOXxGLts&currency=EUR"></script>
+      <script>
+        // WKpreis
+        var total = "{{order.get_cart_total}}";
+        //https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
+        paypal
+          .Buttons({
+            // sollte 'Kaufen' statt 'Pay' anzeigen, reagiert nicht?
+            locale: "de_DE",
+            style: {
+              color: "blue",
+              shape: "pill",
+              label: "paypal",
+              height: 40,
+              size: "responsive",
+            },
+            // Übergeben der Bestellparameter, WKpreis
+            createOrder: function (data, actions) {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      //hier kommt der Gesamtpreis hin, parse string --> float
+                      value: parseFloat(total).toFixed(2),
+                    },
+                  },
+                ],
+              });
+            },
+
+            onApprove: function (data, actions) {
+              return actions.order.capture().then(function (details) {
+                // nach erfolgreichem Bezahlvorgang wird diese Funktion aufgrufen
+                submitFormData();
+              });
+            },
+          })
+          .render("#paypal-button-container");
+      </script>
+    
+    
+    </div>
+
+    <script type="text/javascript">
+      var versand = "{{order.shipping}}";
+      // Form wird übernommen, wenn Bezahlen-Button geklick ist
+      var form = document.getElementById("form");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        console.log("Adresse eingegeben");
+        //Bezahl-Button verschwindet
+        document.getElementById("form-button").classList.add("hidden");
+        // Paypal-Button erscheinen
+        document.getElementById("payment-info").classList.remove("hidden");
+      });
+
+      function submitFormData() {
+        console.log("Bezahlvorgang abgeschlossen");
+
+        var kundeInfo = {
+          name: null,
+          email: null,
+          total: total,
+        };
+
+        var versandInfo = {
+          addresse: null,
+          stadt: null,
+          plz: null,
+        };
+  
+        versandInfo.addresse = form.addresse.value;
+        versandInfo.stadt = form.stadt.value;
+        versandInfo.plz = form.plz.value;
+
+        kundeInfo.name = form.name.value;
+        kundeInfo.email = form.email.value;
+    
+        console.log("Versand Info:", versandInfo);
+        console.log("Kontakt Info:", kundeInfo);
+        
+        //Hier wird nun die Info im body als JSON Token übergeben - https://jwt.io/
+        var url = "/process_order/";
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "applicaiton/json",
+            "X-CSRFToken": csrftoken,
+          },
+          body: JSON.stringify({ form: kundeInfo, versand: versandInfo }),
+        })
+          // wenn alles OK, kommt diese response
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Erfolgreich:", data);
+            alert("Danke für ihre Bestellung. Sie werden nun zurück zum Shop geführt!");
+            //neuer Cookie für die nächste Bestellung wird angelegt
+            cart = {};
+            document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
+            // Weiterleitung auf Startseite
+            window.location.href = "{% url 'shop' %}";
+          });
+      }
+    </script>
+  </div>
+</div>
+<hr />
+{% endblock content %}

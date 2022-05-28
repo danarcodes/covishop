@@ -1,0 +1,237 @@
+/* Allgemein */
+body {
+  font-family: "Rubik";
+  font-size: 1.4rem;
+}
+.text-align {
+  text-align: center;
+}
+b {
+  font-weight: bold;
+  color: #83eeff;
+}
+.navbar,
+.carousel {
+  border-bottom: 1px solid #83eeff;
+}
+/* Damit die Nav-Bar die Titel nicht überdeckt */
+#products,
+#about {
+  padding-top: 100px;
+}
+
+/* Navigation */
+.nav-link {
+  cursor: pointer;
+}
+.lightblue {
+  color: #83eeff;
+}
+.nav-link:active,
+.nav-link:hover {
+  color: #83eeff !important;
+}
+
+.icon-link:active,
+.icon-link:hover {
+  color: #83eeff !important;
+}
+.shop-link:active,
+.shop-link:hover {
+  color: #ffffff !important;
+}
+
+.navbar-toggler-icon {
+  color: black;
+  font-size: 28px;
+}
+#cart-icon {
+  width: 40px;
+  display: inline-block;
+}
+#picture1 {
+  background: url("/static/images/assets/image_01.jpg") no-repeat;
+  width: 100vw;
+  height: 70vh;
+  background-position: center;
+  background-size: cover;
+}
+#picture2 {
+  background: url("/static/images/assets/image_02.jpeg") no-repeat;
+  width: 100vw;
+  height: 70vh;
+  background-position: center;
+  background-size: cover;
+}
+#picture3 {
+  background: url("/static/images/assets/image_03.jpg") no-repeat;
+  background-size: cover;
+  height: 70vh;
+  background-position: 50% 50%;
+  width: 100%;
+}
+#picture4 {
+  background: url("/static/images/assets/image_04.jpg") no-repeat;
+  background-size: cover;
+  height: 70vh;
+  background-position: 50% 50%;
+  width: 100%;
+}
+
+@media (max-width: 991px) {
+  .card-group {
+    display: flex;
+    flex-flow: column wrap;
+  }
+  body {
+    padding-top: 0px;
+  }
+}
+#card1 {
+  background: url("/static/product_images/Klopapier.jpg");
+  height: 500px;
+  background-position: center;
+  background-size: cover;
+}
+#card2 {
+  background: url("/static/product_images/Desinfekt2.jpg");
+  height: 500px;
+  background-position: center;
+  background-size: cover;
+}
+#card3 {
+  background: url("/static/product_images/FFP2Maske.jpg");
+  height: 500px;
+  background-position: center;
+  background-size: cover;
+}
+/* Über uns */
+/* .about-image {
+} */
+#abdullah {
+  background: url("/static/images/assets/abdullah.jpeg");
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+}
+#sabo {
+  background: url("/static/images/assets/sabo.jpeg");
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+}
+#danar {
+  background: url("/static/images/assets/danar.jpg");
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+}
+#btn-back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+}
+
+.footbar {
+  border-top: 1px solid lightblue;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: hsl(0, 0%, 30%);
+}
+
+.box-element {
+  box-shadow: hsl(0, 0%, 50%) 0 0 6px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.img-thumbnail {
+  width: 100%;
+  height: 200px;
+}
+
+.product {
+  border-radius: 0 0 4px 4px;
+}
+
+.bg-dark {
+  background-color: #3b4344 !important;
+}
+
+#cart-total {
+  display: block;
+  text-align: center;
+  color: #fff;
+  background-color: rgb(53, 44, 44);
+  width: 28px;
+  height: 28px;
+  border-radius: 55%;
+  font-size: 15px;
+}
+
+.col-lg-4,
+.col-lg-6,
+.col-lg-8,
+.col-lg-12 {
+  margin-top: 10px;
+}
+
+.btn {
+  border-radius: 5px;
+}
+
+.row-image {
+  width: 150px;
+  border-radius: 5px;
+}
+
+.form-field {
+  width: 250px;
+  display: inline-block;
+  padding: 5px;
+}
+
+.cart-row {
+  display: flex;
+  align-items: flex-stretch;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ececec;
+}
+
+.quantity {
+  display: inline-block;
+  font-weight: 700;
+  padding-right: 10px;
+}
+
+.chg-quantity {
+  width: 30px;
+}
+
+.chg-quantity:hover {
+  opacity: 0.6;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.img {
+  width: 100px;
+  height: 400px;
+}
